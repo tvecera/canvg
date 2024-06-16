@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/member-ordering */
 import { RenderingContext2D } from '../types'
-import {
-  vectorsRatio,
-  vectorsAngle
-} from '../util'
+import { vectorsAngle, vectorsRatio } from '../util'
 import { Point } from '../Point'
 import { BoundingBox } from '../BoundingBox'
 import { PathParser } from '../PathParser'
@@ -34,6 +31,11 @@ export class PathElement extends RenderedElement {
     pathParser.reset()
 
     if (ctx) {
+      if (this.parent?.getAttribute('id').hasValue()) {
+        // @ts-expect-error('Custom PathID')
+        ctx.pathId = this.parent.getAttribute('id').getString('N/A')
+      }
+
       ctx.beginPath()
     }
 
